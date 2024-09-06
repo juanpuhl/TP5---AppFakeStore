@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFakeStore.Views.UsuarioListaPage"
+             xmlns:vm="clr-namespace:AppFakeStore.ViewModels"
+             xmlns:model="clr-namespace:AppFakeStore.Models"
+             x:DataType="vm:UsuarioListaViewModel"
+             Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="10">
+
+            <!-- Usamos CollectionView para mostrar la lista de nombres de usuarios -->
+            <CollectionView 
+                ItemsSource="{Binding Usuarios}"
+                SelectionMode="Single"
+                SelectedItem="{Binding UsuarioSeleccionado}"
+                SelectionChangedCommand="{Binding GoToDetailCommand}">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Usuario">
+                        <Frame BorderColor="Gray" CornerRadius="5" Padding="10" Margin="5">
+                            <Label Text="{Binding name.firstname}" FontAttributes="Bold" FontSize="Medium"/>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <!-- Mostrar la cantidad de usuarios -->
+            <Label Text="{Binding Usuarios.Count, StringFormat='Total de usuarios: {0}'}"
+                   FontAttributes="Bold"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   Margin="10"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
